@@ -21,6 +21,10 @@ dbo.collection("customers").insertOne(myobj, function(err, res) {
 });
 });
 
+app.get('/addProduct', function(req,res){
+  res.sendFile(path.join(__dirname + '/addProduct.html'));
+
+});
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/store.html'));
@@ -28,6 +32,7 @@ app.get('/', function (req, res) {
   app.use(express.static('public'));
 });
 
+app.use(express.static(__dirname+'public'));
 
 
 

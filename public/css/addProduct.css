@@ -1,0 +1,11 @@
+.centered{
+    margin-right: auto;
+    margin-left: auto;
+
+}
+
+body {
+    height: 100%;
+    background: gray;
+    color: brown;
+}
