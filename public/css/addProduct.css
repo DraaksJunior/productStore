@@ -1,3 +1,5 @@
+
+
 .centered{
     margin-right: auto;
     margin-left: auto;
@@ -6,6 +8,22 @@
 
 body {
     height: 100%;
-    background: gray;
-    color: brown;
+    background: lightcyan;
+    color: black;
+}
+
+form { 
+    margin: 0 auto; 
+    width:250px;
+    }
+
+.formbox{
+
+    width: 320px;
+    height: 420px;
+    background: lightblue;
+    color: gray;
+    top:50%;
+
+
 }

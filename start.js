@@ -1,30 +1,52 @@
 
 const mongo = require('mongodb').MongoClient
 const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
+
+
 const app = express();
 const port = 3000;
-const path = require('path');
 
 
 
 
-const uri="mongodb+srv://draaks:pa1n1scak369@cluster0-qvztm.mongodb.net/test?retryWrites=true&w=majority";
-
-mongo.connect(uri,{useUnifiedTopology:true},function(err,db){
-if(err) throw err;
-var dbo = db.db("mydb");
-var myobj = { name: "Company Inc", address: "Highway 37" };
-dbo.collection("customers").insertOne(myobj, function(err, res) {
+const uri = "mongodb+srv://draaks:pa1n1scak369@cluster0-qvztm.mongodb.net/test?retryWrites=true&w=majority";
+/**mongo.connect(uri, { useUnifiedTopology: true }, function (err, db) {
   if (err) throw err;
-  console.log("1 document inserted");
-  db.close();
+  var dbo = db.db("mydb");
+  var myobj = { name: "Company I", address: "Highway 3" };
+  dbo.collection("customers").insertOne(myobj, function (err, res) {
+    if (err) throw err;
+    console.log("1 document inserted");
+    db.close();
+  });
 });
-});
+**/
 
-app.get('/addProduct', function(req,res){
+
+
+app.get('/addProduct', function (req, res) {
   res.sendFile(path.join(__dirname + '/addProduct.html'));
+  app.use(express.static('public'));
 
 });
+
+const urlEncodedParser = bodyParser.urlencoded({ extended: false });
+
+
+app.post("/addProduct", urlEncodedParser, function (req, res) {
+    mongo.connect(uri, { useUnifiedTopology: true }, function (err, db) {
+      if(err) throw err;
+      var dbo = db.db("mydb");
+      dbo.collection("produtos").insertOne(req.body, function (err, res) {
+        if (err) throw err;
+        console.log("1 document inserted");
+        db.close();
+      });
+});
+});
+
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/store.html'));
@@ -32,7 +54,7 @@ app.get('/', function (req, res) {
   app.use(express.static('public'));
 });
 
-app.use(express.static(__dirname+'public'));
+app.use(express.static(__dirname + 'public'));
 
 
 
